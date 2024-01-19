@@ -1,5 +1,5 @@
 <template>
-    <div>
-        
-    </div>
+    <section class="Main">
+        <AuthorCard />
+    </section>
 </template>
