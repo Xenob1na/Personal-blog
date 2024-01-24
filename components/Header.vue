@@ -67,7 +67,7 @@ const nav = ref([
         path: '/'
     },
     {
-        name: 'New',
+        name: 'New Post',
         path: '/New'
     },
     {
