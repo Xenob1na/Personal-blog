@@ -8,10 +8,14 @@
                     site development. Where, with the availability of robust page building tools, creating websites has
                     become a lot more fun (especially for non-developers).</p>
                 <p class="content-header__author-name">BY TOMAS LAURINAVICIUS</p>
+                <div class="content-header__views views">
+                    <Icon name="mdi:eye-outline" class="views__icon"/>
+                    <p class="views__counter">100 просмотров</p>
+                </div>
             </div>
             <div class="blog-item__content-main content-main">
                 <div class="content-main__post-img">
-                    <img src="/post.png" alt="">
+                    <img src="/post.png" alt="post-preview" class="post-preview">
                 </div>
                 <p class="content-main__description">People’s quest for creating websites has easily taken us to a new era
                     of site development. Where, with the availability of robust page building tools, creating websites has
