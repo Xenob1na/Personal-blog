@@ -15,8 +15,17 @@
     </section>
 </template>
 
-<script setup>
-const props = defineProps({
-    card: Object
-})
+<script setup lang="ts">
+
+interface Blog {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  authorName: string;
+}
+
+const props = defineProps<{
+    card: Blog
+}>()
 </script>

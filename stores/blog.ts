@@ -37,6 +37,7 @@ export const useBlogStore = defineStore("blog", {
             id: doc.id,
             title: doc.data().title,
             description: doc.data().description,
+            image: doc.data().image,
             authorName: doc.data().authorName,
           };
           Blogs.push(blog);
