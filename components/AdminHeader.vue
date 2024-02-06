@@ -1,7 +1,8 @@
 <template>
-    <header class="header">
-        <div class="container header__container">
-            <nav class="header__nav nav">
+    <header class="admin-header">
+        <div class="container admin-header__container">
+            <nav class="admin-header__nav nav">
+
                 <nuxt-link to="/">
                     <div class="nav__logo">
                         <span class="nav__logo-svg">
@@ -29,71 +30,31 @@
                     </div>
                 </nuxt-link>
 
-
-                <ul class="nav__list">
+                <ul class="nav__list" style="margin-left: 0px;">
                     <li class="nav__item" v-for="item in nav" :key="item.name">
                         <nuxt-link :to="item.path" class="nav__link">{{ item.name }}</nuxt-link>
                     </li>
                 </ul>
-
+                <div class="nav__btn">
+                    <button class="btn">
+                        <Icon name="streamline:logout-1" size="24" />
+                    </button>
+                </div>
             </nav>
 
-            <div class="header__burger-btn" @click="isBurger = !isBurger">
-                <Icon name="iconamoon:menu-burger-horizontal" size="24" />
-            </div>
-
-            <div class="header__btn">
-                <Transition>
-                    <SearchInput v-if="isInput" />
-                </Transition>
-
-                <button class="btn" @click="SearchForm">
-                    <Icon name="ic:baseline-search" size="24" />
-                </button>
-
-            </div>
         </div>
-
     </header>
-    <Transition>
-        <BurgerMenu @close="isBurger = false" v-if="isBurger" />
-    </Transition>
 </template>
 
 <script setup lang="ts">
 const nav = ref([
     {
-        name: 'Home',
-        path: '/'
+        name: 'Create Post',
+        path: '/Admin'
     },
     {
-        name: 'New Post',
-        path: '/New'
-    },
-    {
-        name: 'All Posts',
-        path: '/AllPosts'
-    },
-
+        name: 'Dashboard',
+        path: '/Admin/dashboard'
+    }
 ])
-
-const isInput = ref(false)
-const isBurger = ref(false)
-
-
-const SearchForm = () => {
-    isInput.value = !isInput.value
-}
 </script>
-
-<style scoped>
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
-}
-</style>

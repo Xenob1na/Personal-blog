@@ -1,20 +1,24 @@
 <template>
-    <div>
-        <Loader v-if="isPendding" />
-        <ClientOnly>
+    <MainLayout>
+        <div>
+            <Loader v-if="isPendding" />
+            <ClientOnly>
 
-            <template #fallback>
+                <template #fallback>
 
-                <Loader />
-            </template>
-        </ClientOnly>
-        <div v-if="isBlog" class="container media-container">
-            <BlogCard v-for="card in blog" :key="card.id" :card="card" />
+                    <Loader />
+                </template>
+            </ClientOnly>
+            <div v-if="isBlog" class="container media-container">
+                <BlogCard v-for="card in blog" :key="card.id" :card="card" />
+            </div>
         </div>
-    </div>
+    </MainLayout>
 </template>
 
 <script setup lang="ts">
+import MainLayout from '../../layouts/MainLayout.vue';
+
 import { useBlogStore } from '../../stores/blog'
 import { storeToRefs } from 'pinia';
 
