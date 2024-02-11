@@ -6,6 +6,7 @@ import {
   addDoc,
   doc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
@@ -46,5 +47,27 @@ export const useBlogStore = defineStore("blog", {
         this.isPendding = false;
       });
     },
+    async deletBlog(id: number) {
+      try {
+        await deleteDoc(doc(blogsCollectionRef, id))
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addBlog(blog: any) {
+      try {
+        await addDoc(blogsCollectionRef, blog);
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async updateBlog(blog: any) {
+      try {
+        await updateDoc(doc(blogsCollectionRef, blog.id), blog);
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
 });
