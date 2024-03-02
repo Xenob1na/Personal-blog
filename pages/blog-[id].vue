@@ -3,13 +3,9 @@
         <section class="blog-item">
             <div class="container blog-item__container">
                 <div class="blog-item__content-header content-header">
-                    <h1 class="content-header__title">10 Reasons to Build Your Website with WP Page Builder</h1>
-                    <p class="content-header__description">People’s quest for creating websites has easily taken us to a new
-                        era
-                        of
-                        site development. Where, with the availability of robust page building tools, creating websites has
-                        become a lot more fun (especially for non-developers).</p>
-                    <p class="content-header__author-name">BY TOMAS LAURINAVICIUS</p>
+                    <h1 class="content-header__title">{{ blog.title }}</h1>
+                    <p class="content-header__category">Category: {{ blog.category }}</p>
+                    <p class="content-header__author-name">BY {{ blog.author }}</p>
                     <div class="content-header__views views">
                         <Icon name="mdi:eye-outline" class="views__icon" />
                         <p class="views__counter">100 просмотров</p>
@@ -17,17 +13,9 @@
                 </div>
                 <div class="blog-item__content-main content-main">
                     <div class="content-main__post-img">
-                        <img src="/post.png" alt="post-preview" class="post-preview">
+                        <img :src="blog.image" alt="post-preview" class="post-preview">
                     </div>
-                    <p class="content-main__description">People’s quest for creating websites has easily taken us to a new
-                        era
-                        of site development. Where, with the availability of robust page building tools, creating websites
-                        has
-                        become a lot more fun (especially for non-developers). The multitude of tools and plugins available
-                        to
-                        you is vast when you try building websites on WordPress. Today we’ll explore a new one, WP Page
-                        Builder.
-                        If you’re tired of the same old page builder plugins, this is one you should try out.</p>
+                    <p class="content-main__description">{{ blog.content }}</p>
                 </div>
             </div>
         </section>
@@ -37,4 +25,26 @@
 <script setup lang="ts">
 import MainLayout from '../layouts/MainLayout.vue';
 const route = useRoute()
+
+interface Blog {
+    id: number;
+    title: string;
+    content: string;
+    image: string;
+    author: string;
+    category: string;
+}
+
+const blog = ref<Blog[]>([])
+
+const blogById = async () => {
+    try {
+        const result: any = await $fetch(`http://localhost:3001/api/v1/blogs/Blogs/` + route.params.id)
+        blog.value = result?.data as Blog[]
+    } catch (error) {
+
+    }
+}
+
+onMounted(() => { blogById() })
 </script>

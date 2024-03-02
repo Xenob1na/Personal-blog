@@ -7,9 +7,9 @@
                 </div>
             </nuxt-link>
             <div class="blog-card__content content">
-                <p class="content__author-name">BY {{ card.authorName }}</p>
+                <p class="content__author-name">BY {{ card.author }}</p>
                 <h3 class="content__title">{{ card.title }}</h3>
-                <p class="content__description">{{ card.description }}</p>
+                <p class="content__description">{{ card.content }}</p>
             </div>
         </div>
     </section>
@@ -18,11 +18,12 @@
 <script setup lang="ts">
 
 interface Blog {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  authorName: string;
+    id: number;
+    title: string;
+    content: string;
+    image: string;
+    author: string;
+    category: string;
 }
 
 const props = defineProps<{

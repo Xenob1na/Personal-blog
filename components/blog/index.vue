@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Loader v-if="isPendding" />
         <ClientOnly>
 
             <template #fallback>
@@ -8,7 +7,10 @@
                 <Loader />
             </template>
         </ClientOnly>
-        <div v-if="isBlog" class="container media-container">
+
+        <Loader v-if="isLoading" />
+
+        <div v-else-if="isBlog" class="container media-container">
             <BlogCard v-for="card in blog" :key="card.id" :card="card" />
         </div>
     </div>
@@ -18,27 +20,32 @@
 import { useBlogStore } from '../../stores/blog'
 import { storeToRefs } from 'pinia';
 
-const { getNotes } = useBlogStore()
-const { blogs, isPendding } = storeToRefs(useBlogStore())
+const { getBlogs } = useBlogStore()
+const { blogs } = storeToRefs(useBlogStore())
 
 
 interface Blog {
     id: number;
     title: string;
-    description: string;
+    content: string;
     image: string;
-    authorName: string;
+    author: string;
+    category: string;
 }
 
 
 const blog = ref<Blog[]>([])
 const isBlog = ref(false)
+const isLoading = ref(false)
 
 onMounted(async () => {
+    isLoading.value = true
     try {
-        await getNotes()
+        await getBlogs()
+        isLoading.value = false
     } catch (error) {
         console.log(error)
+        isLoading.value = false
     }
 })
 
