@@ -5,7 +5,6 @@
                 Dashboard
             </h1>
             <div class="dashboard__table">
-                <Loader v-if="isPendding" />
                 <ClientOnly>
 
                     <template #fallback>
@@ -13,9 +12,10 @@
                         <Loader />
                     </template>
                 </ClientOnly>
+                <Loader v-if="isLoading" />
 
-                <div v-if="isBlog">
-                    <AdminDashboardItem v-for="dashboard in blog" :key="dashboard.id" :dashboard="dashboard"/>
+                <div v-else-if="isBlog">
+                    <AdminDashboardItem v-for="dashboard in blog" :key="dashboard.id" :dashboard="dashboard" />
                 </div>
             </div>
         </div>
@@ -26,34 +26,33 @@
 import { useBlogStore } from "../../stores/blog"
 import { storeToRefs } from 'pinia';
 
-const { getNotes } = useBlogStore()
-const { blogs, isPendding } = storeToRefs(useBlogStore())
+const { getBlogs } = useBlogStore()
+const { blogs } = storeToRefs(useBlogStore())
 
 interface Dashboard {
     id: number;
     title: string;
-    description: string;
+    content: string;
+    image: string;
+    author: string;
+    category: string;
 }
 
 const blog = ref<Dashboard[]>([])
 const isBlog = ref(false)
+const isLoading = ref(false)
+
 onMounted(async () => {
+    isLoading.value = true
     try {
-        await getNotes()
+        await getBlogs()
+        isLoading.value = false
     } catch (error) {
         console.log(error)
+        isLoading.value = false
     }
 })
 
-
-
-onMounted(async () => {
-    try {
-        await getNotes()
-    } catch (error) {
-        console.log(error)
-    }
-})
 
 onBeforeMount(() => {
     watchEffect(() => {

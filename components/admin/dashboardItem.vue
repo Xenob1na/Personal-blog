@@ -2,12 +2,12 @@
     <table>
         <tr>
             <th>Title</th>
-            <th>Description</th>
+            <th>Body</th>
             <th>Actions</th>
         </tr>
         <tr>
             <td style="max-width: 400px;">{{ dashboard.title }}</td>
-            <td style="max-width: 400px;">{{ dashboard.description }}</td>
+            <td style="max-width: 400px;">{{ dashboard.content }}</td>
             <td>
                 <button class="dashboard__btn-delete" @click="onDeleteBlog(dashboard.id)">
                     <Icon name="mdi:delete-outline" size="20" color="white" />
@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { useBlogStore } from '../../stores/blog'
 
-const { deletBlog } = useBlogStore()
+const { deletBlog, getBlogs } = useBlogStore()
 
 
 const onDeleteBlog = async (id: number) => {
@@ -35,6 +35,7 @@ const onDeleteBlog = async (id: number) => {
 
     try {
         await deletBlog(id)
+        await getBlogs()
     } catch (error) {
         console.log(error)
     }
@@ -43,7 +44,10 @@ const onDeleteBlog = async (id: number) => {
 interface Dashboard {
     id: number;
     title: string;
-    description: string;
+    content: string;
+    image: string;
+    author: string;
+    category: string;
 }
 
 const props = defineProps<{

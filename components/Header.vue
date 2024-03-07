@@ -67,10 +67,6 @@ const nav = ref([
         path: '/'
     },
     {
-        name: 'New Post',
-        path: '/New'
-    },
-    {
         name: 'All Posts',
         path: '/AllPosts'
     },
