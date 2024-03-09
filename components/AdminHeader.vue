@@ -67,4 +67,17 @@ const logout = () => {
     router.push('/login');
 
 }
+
+
+
+const ExitAfterAwhile = () => {
+    setTimeout(() => {
+        logUserOut();
+        router.push('/login');
+    }, 60 * 60 * 24 * 30);
+}
+
+onMounted(() => {
+    ExitAfterAwhile()
+})
 </script>

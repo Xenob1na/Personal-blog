@@ -11,6 +11,7 @@ export const useAuthStore = defineStore("auth", {
     loading: false,
     user: "",
     err: "",
+    host: "http://localhost:3001",
   }),
   actions: {
     async authenticateUser({ email, password }: User) {

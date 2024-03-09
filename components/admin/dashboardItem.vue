@@ -12,7 +12,7 @@
                 <button class="dashboard__btn-delete" @click="onDeleteBlog(dashboard.id)">
                     <Icon name="mdi:delete-outline" size="20" color="white" />
                 </button>
-                <nuxt-link to="dashboard/edit-dashboard">
+                <nuxt-link :to="`dashboard/edit-dashboard-${dashboard.id}`">
                     <button class="dashboard__btn-edit">
                         <Icon name="mdi:pencil-outline" size="20" color="white" />
                     </button>

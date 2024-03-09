@@ -17,6 +17,15 @@
                 <div v-else-if="isBlog">
                     <AdminDashboardItem v-for="dashboard in blog" :key="dashboard.id" :dashboard="dashboard" />
                 </div>
+                <div class="pagination">
+                    <button @click="loadMoreBack" class="btn-pagination">
+                        <Icon name="grommet-icons:form-next" color="white" width="24" height="24"
+                            style="rotate: 180deg;" />
+                    </button>
+                    <button @click="loadMoreNext" class="btn-pagination">
+                        <Icon name="grommet-icons:form-next" color="white" width="24" height="24" />
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -27,7 +36,7 @@ import { useBlogStore } from "../../stores/blog"
 import { storeToRefs } from 'pinia';
 
 const { getBlogs } = useBlogStore()
-const { blogs } = storeToRefs(useBlogStore())
+const { blogs, currentPage } = storeToRefs(useBlogStore())
 
 interface Dashboard {
     id: number;
@@ -73,5 +82,30 @@ watch(() => blog.value, () => {
         isBlog.value = false
     }
 }, { deep: true })
+
+
+const loadMoreNext = async () => {
+    isLoading.value = true
+    try {
+        currentPage.value++
+        await getBlogs()
+        isLoading.value = false
+    } catch (error) {
+        console.log(error)
+        isLoading.value = false
+    }
+}
+
+const loadMoreBack = async () => {
+    isLoading.value = true
+    try {
+        currentPage.value--
+        await getBlogs()
+        isLoading.value = false
+    } catch (error) {
+        console.log(error)
+        isLoading.value = false
+    }
+}
 
 </script>
